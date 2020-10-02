@@ -76,7 +76,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         case RGB_TOG:
-            return true;
+            if (record->event.pressed) {
+                if (MODS_CTRL) {
+                    rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
+                }
+                else if (MODS_ALT) {
+                    rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
+                }
+                else if (MODS_SHIFT) {
+                    rgb_matrix_mode(RGB_MATRIX_BREATHING);
+                }
+                else {
+                    rgblight_toggle();
+                }
+            }
+            return false;
 
         default:
             return true; //Process all other keycodes normally
