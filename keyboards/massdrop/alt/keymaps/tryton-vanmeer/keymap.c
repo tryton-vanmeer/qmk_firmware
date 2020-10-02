@@ -1,13 +1,17 @@
 #include QMK_KEYBOARD_H
 
+#define MODS_SHIFT  (keyboard_report->mods & MOD_BIT(KC_LSHIFT) || keyboard_report->mods & MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL  (keyboard_report->mods & MOD_BIT(KC_LCTL) || keyboard_report->mods & MOD_BIT(KC_RCTRL))
+#define MODS_ALT  (keyboard_report->mods & MOD_BIT(KC_LALT) || keyboard_report->mods & MOD_BIT(KC_RALT))
+
+#define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
+
 enum alt_keycodes {
     U_T_AUTO = SAFE_RANGE, //USB Extra Port Toggle Auto Detect / Always Active
     MD_BOOT,               //Restart into bootloader after hold timeout
 
     HOME_DIR,
 };
-
-#define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
 
 keymap_config_t keymap_config;
 
@@ -44,23 +48,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 };
 
+//Setup Initial RGB
 void matrix_init_user(void) {
-    //Setup RGB
     rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
     rgb_matrix_set_color_all(255, 0, 0);
 };
-
-// Runs after another backlight effect and replaces colors already set
-void rgb_matrix_indicators_user(void) {
-}
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-};
-
-#define MODS_SHIFT  (keyboard_report->mods & MOD_BIT(KC_LSHIFT) || keyboard_report->mods & MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL  (keyboard_report->mods & MOD_BIT(KC_LCTL) || keyboard_report->mods & MOD_BIT(KC_RCTRL))
-#define MODS_ALT  (keyboard_report->mods & MOD_BIT(KC_LALT) || keyboard_report->mods & MOD_BIT(KC_RALT))
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
