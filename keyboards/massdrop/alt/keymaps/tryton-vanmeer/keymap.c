@@ -11,6 +11,7 @@ enum alt_keycodes {
     MD_BOOT,               //Restart into bootloader after hold timeout
 
     CMD_HOME,
+    CMD_TERMINAL,
 };
 
 keymap_config_t keymap_config;
@@ -32,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [2] = LAYOUT(
         KC_TILDE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
-        KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+        KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, CMD_TERMINAL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, \
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_APP, KC_TRNS, KC_TRNS, CMD_HOME, KC_TRNS,          KC_TRNS, KC_TRNS, \
         KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS, KC_TRNS, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK  \
@@ -72,6 +73,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CMD_HOME:
             if (record->event.pressed) {
                 SEND_STRING("~/");
+            }
+            return false;
+
+        case CMD_TERMINAL:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_LCTL("t")));
             }
             return false;
 
