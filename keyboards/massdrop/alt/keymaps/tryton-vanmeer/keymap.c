@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //Setup Initial RGB
 void matrix_init_user(void) {
     rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
-    rgb_matrix_set_color_all(255, 0, 0);
+    rgb_matrix_sethsv(HSV_RED);
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
