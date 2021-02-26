@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //Setup Initial RGB
 void matrix_init_user(void) {
     rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
-    rgb_matrix_sethsv(HSV_RED);
+    rgb_matrix_sethsv(HSV_WHITE);
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -89,9 +89,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 else if (MODS_ALT) {
                     rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
+                    rgb_matrix_sethsv(HSV_WHITE);
                 }
                 else if (MODS_SHIFT) {
-                    rgb_matrix_mode(RGB_MATRIX_BREATHING);
+                    rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
+                    rgb_matrix_sethsv(HSV_RED);
                 }
                 else {
                     rgblight_toggle();
